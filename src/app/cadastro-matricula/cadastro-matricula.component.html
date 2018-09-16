@@ -1,0 +1,59 @@
+<mat-card class="example-card">
+
+  <mat-card-header>
+    <mat-card-title class="card-title">{{ passos[passo].nome }}</mat-card-title>
+  </mat-card-header>
+
+  <div id="progress">
+    <mat-progress-bar mode="determinate" value="{{ passos[passo].progresso }}" color="accent"></mat-progress-bar>
+  </div>
+
+  <mat-card-content>
+
+    <div id="fields">
+      <form class="example-container">
+        <div *ngFor="let field of arrayFields">
+
+          <div *ngIf="field.template === 'text'">
+            <div class="example-container">
+            <mat-form-field id = 'nome' appearance="outline" *ngIf="mostrarField(field.id)">
+              <mat-label>{{ field.label }}</mat-label>
+              <input name="{{field.id}}" [disabled]="fields[field.id].readOnly ? fields[field.id].readOnly : false" matInput [(ngModel)]="fields[field.id].value" [required]="fields[field.id].required">
+              <button tabindex = "-1" mat-button *ngIf="fields[field.id].value" matSuffix mat-icon-button aria-label="Clear" (click)="fields[field.id].value = ''">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+            </div>
+          </div>
+
+          <div *ngIf="field.template === 'option'">
+            <div class="example-container" *ngIf="mostrarField(field.id)">
+              <mat-label>{{ field.label }}</mat-label>
+              <mat-radio-group class="radiobutton" name="{{field.id}}" [(ngModel)]="fields[field.id].value">
+                <mat-radio-button class="radiobutton-button" value="true">Sim</mat-radio-button>
+                <mat-radio-button class="radiobutton-button" value="false">Não</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div *ngIf="field.template === 'overview'">
+            <div class="example-container" *ngIf="mostrarField(field.id)">
+              <mat-list>
+                <mat-list-item *ngFor="let field of arrayFields">
+                  <span *ngIf="field.template === 'text'">{{ fields[field.id].label }}: {{ fields[field.id].value }}</span>
+                  <span *ngIf="field.template === 'option'">{{ fields[field.id].label }}: {{ fields[field.id].value === 'true' ? 'Sim' : 'Não'}}</span>
+                </mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-stroked-button color="accent" (click)="voltarPasso()" [disabled]="passo === 0">Voltar</button>
+    <button mat-stroked-button color="success" (click)="proximoPasso()">{{ passos[passo].nomeBotao ? passos[passo].nomeBotao : 'Próximo' }}</button>
+  </mat-card-actions>
+</mat-card>
+

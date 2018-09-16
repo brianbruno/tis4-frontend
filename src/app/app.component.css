@@ -1,0 +1,11 @@
+.navbar {
+  background: #fce4ec;
+}
+
+.navbar button, .navbar span {
+  color: #880e4f;
+}
+
+a {
+  text-decoration: none;
+}
