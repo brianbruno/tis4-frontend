@@ -11,8 +11,8 @@ input {
   width: 100% !important;
 }
 
-.example-container form {
-  /*margin-bottom: 20px;*/
+.example-container mat-form-field {
+  margin-bottom: 8px;
 }
 
 .example-container form > * {

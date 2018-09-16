@@ -16,13 +16,18 @@
 
           <div *ngIf="field.template === 'text'">
             <div class="example-container">
-            <mat-form-field id = 'nome' appearance="outline" *ngIf="mostrarField(field.id)">
-              <mat-label>{{ field.label }}</mat-label>
-              <input name="{{field.id}}" [disabled]="fields[field.id].readOnly ? fields[field.id].readOnly : false" matInput [(ngModel)]="fields[field.id].value" [required]="fields[field.id].required">
-              <button tabindex = "-1" mat-button *ngIf="fields[field.id].value" matSuffix mat-icon-button aria-label="Clear" (click)="fields[field.id].value = ''">
-                <mat-icon>close</mat-icon>
-              </button>
-            </mat-form-field>
+              <mat-form-field id = 'nome' appearance="outline" *ngIf="mostrarField(field.id)">
+                <mat-label>{{ field.label }}</mat-label>
+                <input name="{{field.id}}" [disabled]="fields[field.id].readOnly ? fields[field.id].readOnly : false"
+                       matInput [(ngModel)]="fields[field.id].value" [required]="fields[field.id].required"
+                       [pattern]="fields[field.id].pattern ? fields[field.id].pattern : false"
+                       pattern="fields[field.id].pattern ? fields[field.id].pattern : ''">
+                <button tabindex = "-1" mat-button *ngIf="fields[field.id].value" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="fields[field.id].value = ''">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-hint *ngIf="fields[field.id].subLabel">{{ fields[field.id].subLabel }}</mat-hint>
+              </mat-form-field>
             </div>
           </div>
 
@@ -40,10 +45,21 @@
             <div class="example-container" *ngIf="mostrarField(field.id)">
               <mat-list>
                 <mat-list-item *ngFor="let field of arrayFields">
-                  <span *ngIf="field.template === 'text'">{{ fields[field.id].label }}: {{ fields[field.id].value }}</span>
+                  <span *ngIf="field.template === 'text' || field.template === 'select'">{{ fields[field.id].label }}: {{ fields[field.id].value }}</span>
                   <span *ngIf="field.template === 'option'">{{ fields[field.id].label }}: {{ fields[field.id].value === 'true' ? 'Sim' : 'Não'}}</span>
                 </mat-list-item>
               </mat-list>
+            </div>
+          </div>
+
+          <div *ngIf="field.template === 'select'">
+            <div class="example-container" *ngIf="mostrarField(field.id)">
+              <mat-form-field>
+                <mat-label>{{ field.label }}</mat-label>
+                <mat-select [(value)]="fields[field.id].value">
+                  <mat-option *ngFor="let option of fields[field.id].options" [(value)]="option.value">{{ option.label }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
           </div>
 

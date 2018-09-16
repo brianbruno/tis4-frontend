@@ -90,13 +90,17 @@ export class CadastroMatriculaComponent implements OnInit {
     'nome': {
       'value': '',
       'label': 'Nome',
+      'subLabel': 'Nome completo',
       'template': 'text',
       'required': true,
     },
     'dtNascimento': {
       'value': '',
       'label': 'Data de nascimento',
+      'subLabel': 'Exemplo: 14/05/1999',
       'template': 'text',
+      'validations': ['validarPattern'],
+      'pattern': '^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$',
       'required': true,
     },
     'naturalidade': {
@@ -108,8 +112,22 @@ export class CadastroMatriculaComponent implements OnInit {
     'sexo': {
       'value': '',
       'label': 'Sexo',
-      'template': 'text',
+      'template': 'select',
       'required': true,
+      'options': [
+        {
+          'value': 'Masculino',
+          'label': 'Masculino'
+        },
+        {
+          'value': 'Feminino',
+          'label': 'Feminino'
+        },
+        {
+          'value': 'Outro',
+          'label': 'Outro'
+        },
+      ]
     },
     'etnia': {
       'value': '',
@@ -120,6 +138,8 @@ export class CadastroMatriculaComponent implements OnInit {
     'cpf_crianca': {
       'value': '',
       'label': 'CPF',
+      'subLabel': 'Somente números',
+      'validations': ['validarCPF'],
       'template': 'text',
       'required': false,
     },
@@ -470,6 +490,7 @@ export class CadastroMatriculaComponent implements OnInit {
     'overview': {
       'value': '',
       'label': '',
+      'enviar': false,
       'template': 'overview',
       'required': false,
     }
@@ -492,14 +513,12 @@ export class CadastroMatriculaComponent implements OnInit {
   }
 
   proximoPasso() {
-    if (this.conferirFieldsObrigatorios()) {
+    if (this.conferirValidations() && this.conferirFieldsObrigatorios()) {
       if (this.passos.length > this.passo + 1) {
         this.passo++;
       } else {
         this.salvar();
       }
-    } else {
-      this.mostrarMensagem('Preencha todos os campos obrigatórios');
     }
   }
 
@@ -517,6 +536,9 @@ export class CadastroMatriculaComponent implements OnInit {
         camposPreenchidos = false;
       }
     });
+    if (!camposPreenchidos) {
+      this.mostrarMensagem('Preencha todos os campos obrigatórios');
+    }
     // return true;
     return camposPreenchidos;
   }
@@ -527,12 +549,21 @@ export class CadastroMatriculaComponent implements OnInit {
     });
   }
 
+  mostrarMensagemConfirmacao(message: string, botao: string) {
+    this.snackBar.open(message, botao, {
+      duration: 5000,
+    });
+  }
+
   construirBody() {
     const body = {};
 
     for (const field in this.fields) {
       if (this.fields.hasOwnProperty(field)) {
-        body[field] = this.fields[field].value;
+        const enviar = this.fields[field].enviar ? this.fields[field].enviar : true;
+        if (!enviar) {
+          body[field] = this.fields[field].value;
+        }
       }
     }
 
@@ -542,7 +573,6 @@ export class CadastroMatriculaComponent implements OnInit {
   salvar() {
 
     const body = this.construirBody();
-
 
     this.httpClient.post('http://127.0.0.1:8000/sistema/exemplo_form/', body)
       .subscribe(
@@ -560,6 +590,79 @@ export class CadastroMatriculaComponent implements OnInit {
     if (this.passos[this.passo].fields.includes(nomeField)) {
       result = true;
     }
+    return result;
+  }
+
+  validarPattern(field) {
+    let result = false;
+    const self = this;
+    if (field.value) {
+      if (field.value.match(field.pattern)) {
+        result = true;
+      } else {
+        self.mostrarMensagemConfirmacao('Campo "' + field.label + '" inválido!', 'Ok');
+      }
+    } else {
+      result = true;
+    }
+    return result;
+  }
+
+  validarCPF(field) {
+    let soma = 0;
+    let resto;
+    const self = this;
+    const inputCPF = field.value;
+
+    if (inputCPF) {
+      if (inputCPF === '00000000000') {
+        self.mostrarMensagemConfirmacao('CPF Inválido!', 'Ok');
+        return false;
+      }
+      for (let i = 1; i <= 9; i++) {
+        soma = soma + parseInt(inputCPF.substring(i - 1, i), 0) * (11 - i);
+      }
+      resto = (soma * 10) % 11;
+
+      if ((resto === 10) || (resto === 11)) {
+        resto = 0;
+      }
+      if (resto !== parseInt(inputCPF.substring(9, 10), 0)) {
+        self.mostrarMensagemConfirmacao('CPF Inválido!', 'Ok');
+        return false;
+      }
+
+      soma = 0;
+      for (let i = 1; i <= 10; i++) {
+        soma = soma + parseInt(inputCPF.substring(i - 1, i), 0) * (12 - i);
+      }
+      resto = (soma * 10) % 11;
+
+      if ((resto === 10) || (resto === 11)) {
+        resto = 0;
+      }
+      if (resto !== parseInt(inputCPF.substring(10, 11), 0)) {
+        self.mostrarMensagemConfirmacao('CPF Inválido!', 'Ok');
+        return false;
+      }
+    }
+    return true;
+  }
+
+  conferirValidations() {
+    const self = this;
+    const passoAtual = this.passos[this.passo];
+    let result = true;
+    passoAtual.fields.forEach(function (fieldName) {
+      const field = self.fields[fieldName];
+      if (field.validations && field.validations.length > 0) {
+        field.validations.forEach(function (funct) {
+          if (!self[funct](field)) {
+             result = false;
+          }
+        });
+      }
+    });
     return result;
   }
 }
