@@ -1,0 +1,22 @@
+<mat-grid-list cols="12" rowHeight="100px">
+  <mat-grid-tile *ngFor="let field of arrayFields"
+    [rowspan]="'1'"
+    [colspan]="'4'">
+    <section class="container flex flex-wrap">
+      <mat-card class="item">
+        <mat-card-content>
+          <span class="title">{{ field.value }}</span>
+          <p>
+            <span class="text">{{ field.label }}</span>
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </section>
+  </mat-grid-tile>
+</mat-grid-list>
+
+
+
+
+
+

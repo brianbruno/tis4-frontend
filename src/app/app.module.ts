@@ -5,7 +5,6 @@ import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
 
 import { AppComponent } from './app.component';
-import { AppMenuComponent } from './app-menu/app-menu.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -51,17 +50,19 @@ import { AppRoutingModule } from './app-routing.module';
 import {RouterModule, Routes} from '@angular/router';
 import { CadastroMatriculaComponent } from './cadastro-matricula/cadastro-matricula.component';
 import {FormsModule} from '@angular/forms';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: 'matricula', component: CadastroMatriculaComponent }
+  { path: 'matricula', component: CadastroMatriculaComponent },
+  { path: '', component: DashboardComponent}
 ];
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppMenuComponent,
-    CadastroMatriculaComponent
+    CadastroMatriculaComponent,
+    DashboardComponent
   ],
   imports: [
     FormsModule,

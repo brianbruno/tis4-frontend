@@ -1,0 +1,48 @@
+/* Flex */
+.flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-item-1 {
+  flex: 1;
+}
+
+/* Flex Item */
+.item {
+  margin: 5px;
+  text-align: center;
+  width: 300px;
+  display: flex;
+  background-color: tomato;
+}
+
+.title {
+  font-weight: bold;
+  color: white;
+  font-size: 3em;
+}
+
+.text {
+  color: white;
+  font-size: 1.5em;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  margin: 20px 0 0 0;
+  font-size: 1.25em;
+  font-weight: normal;
+}
+
+body {
+  font-family: monospace;
+  color: #333;
+}
