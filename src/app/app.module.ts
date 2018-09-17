@@ -51,10 +51,12 @@ import {RouterModule, Routes} from '@angular/router';
 import { CadastroMatriculaComponent } from './cadastro-matricula/cadastro-matricula.component';
 import {FormsModule} from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { BuscarAlunoComponent } from './buscar-aluno/buscar-aluno.component';
 
 const routes: Routes = [
   { path: 'matricula', component: CadastroMatriculaComponent },
-  { path: '', component: DashboardComponent}
+  { path: 'alunos', component: BuscarAlunoComponent },
+  { path: '', component: DashboardComponent }
 ];
 
 
@@ -62,7 +64,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     CadastroMatriculaComponent,
-    DashboardComponent
+    DashboardComponent,
+    BuscarAlunoComponent
   ],
   imports: [
     FormsModule,

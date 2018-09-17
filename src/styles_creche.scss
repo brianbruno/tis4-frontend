@@ -6,11 +6,146 @@
 // **Be sure that you only ever include this mixin once!**
 @include mat-core();
 
+/* For use in src/lib/core/theming/_palette.scss */
+$md-pink-palete: (
+  50 : #f5e1f6,
+  100 : #e6b4e9,
+  200 : #d582da,
+  300 : #c44fcb,
+  400 : #b72abf,
+  500 : #aa04b4,
+  600 : #a303ad,
+  700 : #9903a4,
+  800 : #90029c,
+  900 : #7f018c,
+  A100 : #f7b8ff,
+  A200 : #f285ff,
+  A400 : #ec52ff,
+  A700 : #e939ff,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$md-green-palete: (
+  50 : #e5eae3,
+  100 : #becab8,
+  200 : #93a789,
+  300 : #68835a,
+  400 : #476936,
+  500 : #274e13,
+  600 : #234711,
+  700 : #1d3d0e,
+  800 : #17350b,
+  900 : #0e2506,
+  A100 : #7dff61,
+  A200 : #53ff2e,
+  A400 : #2cfa00,
+  A700 : #27e100,
+  A900 : #0e2506,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$md-red-palete: (
+  50 : #f9e0e0,
+  100 : #f0b3b3,
+  200 : #e68080,
+  300 : #db4d4d,
+  400 : #d42626,
+  500 : #cc0000,
+  600 : #c70000,
+  700 : #c00000,
+  800 : #b90000,
+  900 : #ad0000,
+  A100 : #ffd7d7,
+  A200 : #ffa4a4,
+  A400 : #ff7171,
+  A700 : #ff5858,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$md-blue-palete: (
+  50 : #e4e3ea,
+  100 : #bcb8ca,
+  200 : #9089a6,
+  300 : #635982,
+  400 : #413668,
+  500 : #20124d,
+  600 : #1c1046,
+  700 : #180d3d,
+  800 : #130a34,
+  900 : #0b0525,
+  A100 : #7561ff,
+  A200 : #492eff,
+  A400 : #2000fa,
+  A700 : #1d00e1,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
+  )
+);
+
+
 // Define the default theme (same as the example above).
-$candy-app-primary: mat-palette($mat-indigo);
-$candy-app-accent:  mat-palette($mat-pink, A200, A100, A400);
-$candy-app-theme:   mat-light-theme($candy-app-primary, $candy-app-accent);
-$candy-app-success: mat-palette($mat-green, A200, A100, A400);
+$candy-app-primary: mat-palette($md-green-palete);
+$candy-app-accent:  mat-palette($md-blue-palete);
+$candy-app-warn:    mat-palette($md-red-palete);
+$candy-app-theme:   mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
 
 // Include the default theme styles.
 @include angular-material-theme($candy-app-theme);

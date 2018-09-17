@@ -14,7 +14,7 @@ export class CadastroMatriculaComponent implements OnInit {
   passo = 0;
   passos = [
       {
-        'progresso': 5,
+        'progresso': 0,
         'nome': 'Informações da criança',
         'fields': ['nome', 'dtNascimento', 'naturalidade', 'sexo', 'etnia', 'cpf_crianca']
       },

@@ -13,10 +13,19 @@
 
   <button mat-button [matMenuTriggerFor]="cadastros">Cadastro</button>
 
+  <button mat-button [matMenuTriggerFor]="buscas">Busca</button>
+
   <mat-menu #cadastros="matMenu">
     <button routerLink="/matricula" mat-menu-item>
       <mat-icon>account_box</mat-icon>
       <span>Matricula</span>
+    </button>
+  </mat-menu>
+
+  <mat-menu #buscas="matMenu">
+    <button routerLink="/alunos" mat-menu-item>
+      <mat-icon>account_box</mat-icon>
+      <span>Alunos</span>
     </button>
   </mat-menu>
 </nav>

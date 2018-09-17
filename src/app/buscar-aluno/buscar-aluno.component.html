@@ -1,0 +1,55 @@
+<mat-card>
+  <mat-card-content>
+    <form class="example-form">
+
+      <mat-form-field class="example-full-width">
+        <input type="text" name="nome" matInput placeholder="Nome" [(ngModel)]="nomealuno" (change)="pesquisar()">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+    </form>
+
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-content>
+    <div *ngIf="buscando" class="example-section center">
+      <mat-progress-bar mode="buffer" color="warn"></mat-progress-bar>
+    </div>
+    <div *ngIf="!buscando">
+      <div *ngFor="let aluno of resultado">
+        <mat-card>
+          <mat-card-header>
+            <div class="title-left">
+              <div mat-card-avatar class="icon"><mat-icon [inline]="true">child_care</mat-icon></div>
+              <div>
+                <mat-card-title>{{ aluno.nome }}</mat-card-title>
+                <mat-card-subtitle>{{ aluno.idade }} anos</mat-card-subtitle>
+              </div>
+            </div>
+            <div align="end">
+              <mat-chip-list>
+                <mat-chip class="unicorn-dark-theme" color="accent" selected>Novato</mat-chip>
+              </mat-chip-list>
+            </div>
+          </mat-card-header>
+
+          <mat-card-content>
+            <p>Mãe: {{ aluno.nomeMae }}</p>
+            <p>Telefone: {{ aluno.telefone }}</p>
+            <p>{{ aluno.endereco }}</p>
+          </mat-card-content>
+
+          <mat-card-actions align="end">
+            <button mat-stroked-button color="warn">Excluir</button>
+            <button mat-raised-button color="primary">Editar</button>
+          </mat-card-actions>
+        </mat-card>
+        <mat-divider [inset]="true"></mat-divider>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+

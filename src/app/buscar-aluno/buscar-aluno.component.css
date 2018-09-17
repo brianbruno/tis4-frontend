@@ -1,0 +1,43 @@
+.example-form {
+  min-width: 150px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-h2 {
+  margin: 10px;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 0 10px;
+}
+
+.center {
+  text-align: center !important;
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+.icon {
+  font-size: 36px;
+}
+
+mat-divider {
+  margin-top: 5px;
+}
+
+.title-left {
+  display: flex;
+  width: 95%;
+}
+
